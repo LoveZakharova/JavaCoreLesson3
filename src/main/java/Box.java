@@ -1,20 +1,17 @@
 import java.util.ArrayList;
 
-public class Box <T extends Fruit, S> {
+public class Box <T extends Fruit> {
 
    ArrayList<T> containers;
-   S name;
 
-   public Box(S name) {
+   public Box() {
        containers = new ArrayList<>();
-       this.name = name;
    }
 
-    public S getName() {
-        return name;
-    }
-
-    public double getWeight() {
+    public double getWeightOfBox() {
+       if (containers.isEmpty())
+           return 0;
+       else
        return containers.get(0).getWeight() * containers.size();
     }
 
@@ -22,8 +19,8 @@ public class Box <T extends Fruit, S> {
             containers.add(t);
     }
 
-    public boolean compare(Box<T, S> anotherBox) {
-       if (this.getWeight() > anotherBox.getWeight()) {
+    public boolean compare(Box<?> box) {
+       if (this.getWeightOfBox() > box.getWeightOfBox()) {
            return true;
        } else {
            return false;
@@ -31,8 +28,8 @@ public class Box <T extends Fruit, S> {
     }
 
     //метод, который позволяет пересыпать фрукты из текущей коробки в другую.
-    public void pourOver(Box<T, S> anotherBox) {
-        anotherBox.containers.addAll(containers);
+    public void pourOver(Box<T> box) {
+        box.containers.addAll(containers);
         containers.clear();
     }
 
